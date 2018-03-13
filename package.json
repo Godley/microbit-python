@@ -8,7 +8,7 @@
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-files": "^2.4.3"
+    "react-router": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
