@@ -2,17 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import v1 from './v1';
+import v1dot1 from './v1.1';
 import v2 from './v2';
 import Versioner from './Versioner';
 import registerServiceWorker from './registerServiceWorker';
 import { Router, Route } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 
-
-
+const manifest = [
+    [],
+    [v1, v1dot1],
+    [v2]
+]
+console.log(manifest[1][manifest[1].length - 1])
 const history = createBrowserHistory()
 ReactDOM.render(<Router history={history}>
-<div><Route path="/1" component={v1} />
-<Route path="/2" component={v2} /></div>
+<div><Route path="/1" component={manifest[1][manifest[1].length - 1]} />
+<Route path="/2" component={manifest[2][manifest[2].length - 1]} /></div>
 </Router>, document.getElementById('root'));
 registerServiceWorker();

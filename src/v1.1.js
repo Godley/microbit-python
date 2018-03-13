@@ -35,39 +35,27 @@ class App extends Versioner {
       }
   }
 
-  
-  render() {
+  content() {
     let data = "data:," + this.state.version + "\n" + this.state.value;
-    let decoded = this.state.version + "\n" + this.state.value;
-    return (
+    return (<table>
+    <tbody>
+      <tr>
+        <td style={{backgroundColor: this.state.color}}>
+        <span>
+  <input type="file"
+  name="myFile"
+  onChange={this.uploadFile} />
+</span></td>
+        <td style={{backgroundColor: this.state.color}}><a href={data} download>Save</a></td>
+        <td>v{this.state.version}</td>
+      </tr>
+      <tr>
+        <td><textarea value={this.state.value} onChange={this.handleTextChange} />
+        </td>
+      </tr>
       
-
-      <Route exact path="/" render={() => (
-        this.state.version != this.state.app_version ? (
-          <Redirect to="/"/>
-        ) : (
-          <table>
-          <tbody>
-            <tr>
-              <td style={{backgroundColor: this.state.color}}>
-              <span>
-        <input type="file"
-        name="myFile"
-        onChange={this.uploadFile} />
-      </span></td>
-              <td style={{backgroundColor: this.state.color}}><a href={data} download>Save</a></td>
-              <td>v{this.state.version}</td>
-            </tr>
-            <tr>
-              <td><textarea value={this.state.value} onChange={this.handleTextChange} />
-              </td>
-            </tr>
-            
-          </tbody>
-        </table>
-        )
-      )}/>
-    );
+    </tbody>
+  </table>);
   }
   
 
