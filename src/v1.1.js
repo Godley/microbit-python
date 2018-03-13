@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import Files from 'react-files';
+import { Route, Redirect } from 'react-router';
+import Versioner from './Versioner';
 
-class App extends Component {
+class App extends Versioner {
   
   constructor(props) {
     super(props);
 
     // This binding is necessary to make `this` work in the callback
-    this.onFilesError = this.onFilesError.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
-
-    this.state = {value: "blank",
-    version: "1.0.0"};
     this.uploadFile = this.uploadFile.bind(this);
-  
-    this.that = this;
+
+    this.state.app_version = "1.1.0";
+    this.state.version = "1.1.0";
+    this.state.color = "pink";
   }
   
   uploadFile(event) {
@@ -25,9 +23,6 @@ class App extends Component {
       console.log(file);
       
       if (file) {
-        let data = new FormData();
-        data.append('file', file);
-        // axios.post('/files', data)...
         let reader = new FileReader();
         var that = this;
         reader.onload = function() {
@@ -37,7 +32,6 @@ class App extends Component {
             value: contents_array[1]});
         };
         reader.readAsText(file);
-        console.log(reader.result);
       }
   }
 
@@ -46,24 +40,33 @@ class App extends Component {
     let data = "data:," + this.state.version + "\n" + this.state.value;
     let decoded = this.state.version + "\n" + this.state.value;
     return (
-      <table>
-        <tbody>
-          <tr>
-            <td>
-            <span>
-      <input type="file"
-      name="myFile"
-      onChange={this.uploadFile} />
-    </span></td>
-            <td><a href={data} download>Save</a></td>
-          </tr>
-          <tr>
-            <td><textarea value={this.state.value} onChange={this.handleTextChange} />
-            </td>
-          </tr>
-          
-        </tbody>
-      </table>
+      
+
+      <Route exact path="/" render={() => (
+        this.state.version != this.state.app_version ? (
+          <Redirect to="/"/>
+        ) : (
+          <table>
+          <tbody>
+            <tr>
+              <td style={{backgroundColor: this.state.color}}>
+              <span>
+        <input type="file"
+        name="myFile"
+        onChange={this.uploadFile} />
+      </span></td>
+              <td style={{backgroundColor: this.state.color}}><a href={data} download>Save</a></td>
+              <td>v{this.state.version}</td>
+            </tr>
+            <tr>
+              <td><textarea value={this.state.value} onChange={this.handleTextChange} />
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+        )
+      )}/>
     );
   }
   
