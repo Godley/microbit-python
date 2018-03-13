@@ -17,7 +17,8 @@ const manifest = [
 console.log(manifest[1][manifest[1].length - 1])
 const history = createBrowserHistory()
 ReactDOM.render(<Router history={history}>
-<div><Route path="/1" component={manifest[1][manifest[1].length - 1]} />
-<Route path="/2" component={manifest[2][manifest[2].length - 1]} /></div>
+<div><Route exact path="/1" component={manifest[1][manifest[1].length - 1]} />
+<Route exact path="/2" component={manifest[2][manifest[2].length - 1]} />
+<Route exact path="/" component={manifest[manifest.length - 1][manifest[manifest.length - 1].length - 1]} /></div>
 </Router>, document.getElementById('root'));
 registerServiceWorker();

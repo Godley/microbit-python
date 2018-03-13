@@ -27,7 +27,6 @@ class App extends Versioner {
         var that = this;
         reader.onload = function() {
           let contents_array = this.result.split("\n");
-          console.log(contents_array);
           that.setState({version: contents_array[0],
             value: contents_array[1]});
         };
